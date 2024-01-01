@@ -2,7 +2,6 @@
 #include "asteroids/asteroids.hpp"
 
 using namespace sf;
-static bool GAME = true;
 
 int main() {
   RenderWindow app(sf::VideoMode(W, H), "Asterodis!");
