@@ -7,15 +7,23 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS On)
 
 include_directories(include)
 
-add_library(Explosion src/asteroids/explosion.cpp)
-target_link_libraries(Explosion sfml-graphics)
+add_library(Animation src/asteroids/animation.cpp)
+target_link_libraries(Animation sfml-graphics)
 
+add_library(Explosion src/asteroids/explosion.cpp)
+target_link_libraries(Explosion Animation sfml-graphics)
+
+add_library(Rock src/asteroids/rock.cpp)
+target_link_libraries(Rock Animation sfml-graphics)
+
+add_library(Bullet src/asteroids/bullet.cpp)
+target_link_libraries(Bullet Animation sfml-graphics)
 
 add_library(Spaceship src/asteroids/spaceship.cpp)
-target_link_libraries(Spaceship Explosion sfml-graphics)
+target_link_libraries(Spaceship Animation sfml-graphics)
 
 add_executable(Asteroids src/main.cpp)
-target_link_libraries(Asteroids Spaceship sfml-window sfml-system)
+target_link_libraries(Asteroids Explosion Spaceship Rock Bullet sfml-window sfml-system)
 target_compile_features(Asteroids PRIVATE cxx_std_17)
 
 if(WIN32)
