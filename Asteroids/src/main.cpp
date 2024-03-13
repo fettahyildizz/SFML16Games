@@ -1,4 +1,3 @@
-#include "asteroids/animation.hpp"
 #include "asteroids/asteroids.hpp"
 
 using namespace sf;
