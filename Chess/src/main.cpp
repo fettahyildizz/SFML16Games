@@ -148,15 +148,34 @@ int main() {
                          TAKEABLE) {
                   // If your move reveals a check, you can't move.
                   bool checkReveals = false;
+
+                  
+
                   updateBoardStatus(pieces, board);
-                  for (int i = 0; i < pieces.size(); i++) {
-                    pieces[i]->checkMoveableSquares(board);
-                    if (pieces[i]->checks) {
+                  for (int j = 0; j < pieces.size(); j++) {
+                    if (isWhite) {
+                      if (pieces[j]->isWhite) {
+                        continue;
+                      }
+                    } else if (!isWhite) {
+                      if (!pieces[j]->isWhite) {
+                        continue;
+                      }
+                    }
+                    // Don't check if the piece that is about to be removed from the board is checking the king.
+                    if (i==j)
+                    {
+                      continue;
+                    }
+                    
+                    pieces[j]->checkMoveableSquares(board);
+                    if (pieces[j]->checks) {
                       checkReveals = true;
                     }
                   }
                   // If move reveals a check, it's illegal move.
                   if (checkReveals) {
+                    std::cout << "check reveals\n";
                     pieces[firstClickedPiece]->move(
                         std::floor(
                             (firstClickedPos.x + static_cast<int>(SIZE / 2)) /
@@ -169,37 +188,38 @@ int main() {
                   } else {
                     isOccupied = true;
                     pieces[firstClickedPiece]->move(
-                        std::floor(pos.x / SIZE) * SIZE,
-                        std::floor(pos.y / SIZE) * SIZE);
+                      std::floor(pos.x / SIZE) * SIZE,
+                      std::floor(pos.y / SIZE) * SIZE);
 
                     // If there is any check on the board, if there is, your
                     // move should remove check otherwise it's an illegal move.
                     bool checks = false;
                     updateBoardStatus(pieces, board);
-                    for (int i = 0; i < pieces.size(); i++) {
-                      if(isWhite)
-                      {
-                        if (pieces[i]->isWhite)
-                        {
+                    for (int j = 0; j < pieces.size(); j++) {
+                      if (isWhite) {
+                        if (pieces[j]->isWhite) {
+                          continue;
+                        }
+                      } else if (!isWhite) {
+                        if (!pieces[j]->isWhite) {
                           continue;
                         }
                       }
-                      else if(!isWhite)
-                      {
-                        if (!pieces[i]->isWhite)
-                        {
-                          continue;
-                        }
-                      }
-                      
-                      pieces[i]->checkMoveableSquares(board);
-                      if (pieces[i]->checks) {
-                        std::cout << pieces[i]->getName() << " checks.\n";
+                      // Don't check if the piece that is about to be removed from the board is checking the king.
+                    if (i == j)
+                    {
+                      continue;
+                    }
+
+                      pieces[j]->checkMoveableSquares(board);
+                      if (pieces[j]->checks) {
+                        std::cout << pieces[j]->getName() << " checks.\n";
                         checks = true;
                       }
                     }
                     // If king is still checked, it's an illegal move.
                     if (checks) {
+                      std::cout << "checks move back to***\n";
                       pieces[firstClickedPiece]->move(
                           std::floor(
                               (firstClickedPos.x + static_cast<int>(SIZE / 2)) /
@@ -212,6 +232,7 @@ int main() {
                     }
                     // If there is no active check on king
                     else {
+                      std::cout << "no checks piece removed***\n";
                       pieces.erase(pieces.begin() + i);
 
                       if (isWhite)
@@ -227,6 +248,7 @@ int main() {
             if (!isOccupied) {
               if (pieces[firstClickedPiece]
                       ->squareStatus_[pos.y / SIZE][pos.x / SIZE] == MOVEABLE) {
+
                 pieces[firstClickedPiece]->move(std::floor(pos.x / SIZE) * SIZE,
                                                 std::floor(pos.y / SIZE) *
                                                     SIZE);
@@ -235,6 +257,15 @@ int main() {
                 bool checkReveals = false;
                 updateBoardStatus(pieces, board);
                 for (int i = 0; i < pieces.size(); i++) {
+                  if (isWhite) {
+                    if (pieces[i]->isWhite) {
+                      continue;
+                    }
+                  } else if (!isWhite) {
+                    if (!pieces[i]->isWhite) {
+                      continue;
+                    }
+                  }
                   pieces[i]->checkMoveableSquares(board);
                   if (pieces[i]->checks) {
                     checkReveals = true;
@@ -242,6 +273,7 @@ int main() {
                 }
                 // If move reveals a check, it's illegal move.
                 if (checkReveals) {
+                  std::cout << "check reveals\n";
                   pieces[firstClickedPiece]->move(
                       std::floor(
                           (firstClickedPos.x + static_cast<int>(SIZE / 2)) /
@@ -259,17 +291,12 @@ int main() {
                   bool checks = false;
                   updateBoardStatus(pieces, board);
                   for (int i = 0; i < pieces.size(); i++) {
-                    if (isWhite)
-                    {
-                      if(pieces[i]->isWhite)
-                      {
+                    if (isWhite) {
+                      if (pieces[i]->isWhite) {
                         continue;
                       }
-                    }
-                    else if (!isWhite)
-                    {
-                      if(!pieces[i]->isWhite)
-                      {
+                    } else if (!isWhite) {
+                      if (!pieces[i]->isWhite) {
                         continue;
                       }
                     }
@@ -290,7 +317,7 @@ int main() {
                             (firstClickedPos.y + static_cast<int>(SIZE / 2)) /
                             SIZE) *
                             SIZE);
-                  } 
+                  }
                   // If there is not active check, it's legal move.
                   else {
                     if (isWhite) {

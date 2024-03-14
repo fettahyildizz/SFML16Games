@@ -548,6 +548,7 @@ void Pieces::checkMoveableSquares(
         if (name_ == WHITE_QUEEN && board[row][x] >= 6) {
           if (board[row][x] == 10) {
             squareStatus_[row][x] = CHECK;
+            std::cout << "col: " << x << " row: " << row << " Check\n";
             checks = true;
           } else {
             squareStatus_[row][x] = TAKEABLE;
@@ -559,6 +560,7 @@ void Pieces::checkMoveableSquares(
         else if (name_ == BLACK_QUEEN && board[row][x] < 6) {
           if (board[row][x] == 4) {
             squareStatus_[row][x] = CHECK;
+            std::cout << "col: " << x << " row: " << row << " Check\n";
             checks = true;
           } else {
             squareStatus_[row][x] = TAKEABLE;
@@ -587,6 +589,7 @@ void Pieces::checkMoveableSquares(
         if (name_ == WHITE_QUEEN && board[row][x] >= 6) {
           if (board[row][x] == 10) {
             squareStatus_[row][x] = CHECK;
+            std::cout << "col: " << x << " row: " << row << " Check\n";
             checks = true;
           } else {
             squareStatus_[row][x] = TAKEABLE;
@@ -598,6 +601,7 @@ void Pieces::checkMoveableSquares(
         else if (name_ == BLACK_QUEEN && board[row][x] < 6) {
           if (board[row][x] == 4) {
             squareStatus_[row][x] = CHECK;
+            std::cout << "col: " << x << " row: " << row << " Check\n";
             checks = true;
           } else {
             squareStatus_[row][x] = TAKEABLE;
@@ -623,22 +627,24 @@ void Pieces::checkMoveableSquares(
         // If piece is White and occupying piece is black, then it's considered
         // takeable piece.
         if (name_ == WHITE_QUEEN && board[x][col] >= 6) {
-          if (board[row][x] == 10) {
-            squareStatus_[row][x] = CHECK;
+          if (board[x][col] == 10) {
+            squareStatus_[x][col] = CHECK;
+            std::cout << "col: " << col << " row: " << x << " Check\n";
             checks = true;
           } else {
-            squareStatus_[row][x] = TAKEABLE;
+            squareStatus_[x][col] = TAKEABLE;
           }
           break;
         }
         // If piece is Black and occupying piece is white, then it's considered
         // takeable piece.
         else if (name_ == BLACK_QUEEN && board[x][col] < 6) {
-          if (board[row][x] == 4) {
-            squareStatus_[row][x] = CHECK;
+          if (board[x][col] == 4) {
+            squareStatus_[x][col] = CHECK;
+            std::cout << "col: " << col << " row: " << x << " Check\n";
             checks = true;
           } else {
-            squareStatus_[row][x] = TAKEABLE;
+            squareStatus_[x][col] = TAKEABLE;
           }
           break;
         }
@@ -662,22 +668,24 @@ void Pieces::checkMoveableSquares(
         // If piece is White and occupying piece is black, then it's considered
         // takeable piece.
         if (name_ == WHITE_QUEEN && board[x][col] >= 6) {
-          if (board[row][x] == 10) {
-            squareStatus_[row][x] = CHECK;
+          if (board[x][col] == 10) {
+            squareStatus_[x][col] = CHECK;
+            std::cout << "col: " << col << " row: " << x << " Check\n";
             checks = true;
           } else {
-            squareStatus_[row][x] = TAKEABLE;
+            squareStatus_[x][col] = TAKEABLE;
           }
           break;
         }
         // If piece is Black and occupying piece is white, then it's considered
         // takeable piece.
         else if (name_ == BLACK_QUEEN && board[x][col] < 6) {
-          if (board[row][x] == 4) {
-            squareStatus_[row][x] = CHECK;
+          if (board[x][col] == 4) {
+            squareStatus_[x][col] = CHECK;
+            std::cout << "col: " << col << " row: " << x << " Check\n";
             checks = true;
           } else {
-            squareStatus_[row][x] = TAKEABLE;
+            squareStatus_[x][col] = TAKEABLE;
           }
           break;
         }
@@ -712,6 +720,7 @@ void Pieces::checkMoveableSquares(
             if (board[row - diagonal_row][col - diagonal_col] >= 6) {
               if (board[row - diagonal_row][col - diagonal_col] == 10) {
                 squareStatus_[row - diagonal_row][col - diagonal_col] = CHECK;
+                std::cout << "col: " << col - diagonal_col << " row: " << row - diagonal_row << " Check\n";
                 checks = true;
               } else {
                 squareStatus_[row - diagonal_row][col - diagonal_col] =
@@ -734,6 +743,7 @@ void Pieces::checkMoveableSquares(
             if (board[row - diagonal_row][col - diagonal_col] < 6) {
               if (board[row - diagonal_row][col - diagonal_col] == 4) {
                 squareStatus_[row - diagonal_row][col - diagonal_col] = CHECK;
+                std::cout << "col: " << col - diagonal_col << " row: " << row - diagonal_row << " Check\n";
                 checks = true;
               } else {
                 squareStatus_[row - diagonal_row][col - diagonal_col] =
@@ -777,6 +787,7 @@ void Pieces::checkMoveableSquares(
             if (board[row - diagonal_row][col - diagonal_col] >= 6) {
               if (board[row - diagonal_row][col - diagonal_col] == 10) {
                 squareStatus_[row - diagonal_row][col - diagonal_col] = CHECK;
+                std::cout << "col: " << col - diagonal_col << " row: " << row - diagonal_row << " Check\n";
                 checks = true;
               } else {
                 squareStatus_[row - diagonal_row][col - diagonal_col] =
@@ -799,6 +810,7 @@ void Pieces::checkMoveableSquares(
             if (board[row - diagonal_row][col - diagonal_col] < 6) {
               if (board[row - diagonal_row][col - diagonal_col] == 4) {
                 squareStatus_[row - diagonal_row][col - diagonal_col] = CHECK;
+                std::cout << "col: " << col - diagonal_col << " row: " << row - diagonal_row << " Check\n";
                 checks = true;
               } else {
                 squareStatus_[row - diagonal_row][col - diagonal_col] =
@@ -842,6 +854,7 @@ void Pieces::checkMoveableSquares(
             if (board[row - diagonal_row][col - diagonal_col] >= 6) {
               if (board[row - diagonal_row][col - diagonal_col] == 10) {
                 squareStatus_[row - diagonal_row][col - diagonal_col] = CHECK;
+                std::cout << "col: " << col - diagonal_col << " row: " << row - diagonal_row << " Check\n";
                 checks = true;
               } else {
                 squareStatus_[row - diagonal_row][col - diagonal_col] =
@@ -864,6 +877,7 @@ void Pieces::checkMoveableSquares(
             if (board[row - diagonal_row][col - diagonal_col] < 6) {
               if (board[row - diagonal_row][col - diagonal_col] == 4) {
                 squareStatus_[row - diagonal_row][col - diagonal_col] = CHECK;
+                std::cout << "col: " << col - diagonal_col << " row: " << row - diagonal_row << " Check\n";
                 checks = true;
               } else {
                 squareStatus_[row - diagonal_row][col - diagonal_col] =
@@ -907,6 +921,7 @@ void Pieces::checkMoveableSquares(
             if (board[row - diagonal_row][col - diagonal_col] >= 6) {
               if (board[row - diagonal_row][col - diagonal_col] == 10) {
                 squareStatus_[row - diagonal_row][col - diagonal_col] = CHECK;
+                std::cout << "col: " << col - diagonal_col << " row: " << row - diagonal_row << " Check\n";
                 checks = true;
               } else {
                 squareStatus_[row - diagonal_row][col - diagonal_col] =
@@ -923,12 +938,12 @@ void Pieces::checkMoveableSquares(
               break;
             }
           }
-          // If piece is black knight
           else if (name_ == BLACK_QUEEN) {
             // Target piece is white
             if (board[row - diagonal_row][col - diagonal_col] < 6) {
               if (board[row - diagonal_row][col - diagonal_col] == 4) {
                 squareStatus_[row - diagonal_row][col - diagonal_col] = CHECK;
+                std::cout << "col: " << col - diagonal_col << " row: " << row - diagonal_row << " Check\n";
                 checks = true;
               } else {
                 squareStatus_[row - diagonal_row][col - diagonal_col] =
