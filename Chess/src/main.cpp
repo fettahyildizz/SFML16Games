@@ -94,32 +94,34 @@ int main() {
           sf::Vector2i pos = sf::Mouse::getPosition(app);
           bool wrongMove = false;
 
-          // Wrong move order. White to play.
-          if (isWhite && pieces[firstClickedPiece]->getPieceEnum() >= 6) {
-            std::cout << "Wrong move. White to play.\n";
-            pieces[firstClickedPiece]->move(
-                std::floor((firstClickedPos.x + static_cast<int>(SIZE / 2)) /
-                           SIZE) *
-                    SIZE,
-                std::floor((firstClickedPos.y + static_cast<int>(SIZE / 2)) /
-                           SIZE) *
-                    SIZE);
-            wrongMove = true;
-          }
-          // Wrong move order. Black to play
-          else if (!isWhite && pieces[firstClickedPiece]->getPieceEnum() < 6) {
-            pieces[firstClickedPiece]->move(
-                std::floor((firstClickedPos.x + static_cast<int>(SIZE / 2)) /
-                           SIZE) *
-                    SIZE,
-                std::floor((firstClickedPos.y + static_cast<int>(SIZE / 2)) /
-                           SIZE) *
-                    SIZE);
-            std::cout << "Wrong move. Black to play.\n";
-            wrongMove = true;
+          if (firstClickedPiece >= 0) { // Wrong move order. White to play.
+            if (isWhite && pieces[firstClickedPiece]->getPieceEnum() >= 6) {
+              std::cout << "Wrong move. White to play.\n";
+              pieces[firstClickedPiece]->move(
+                  std::floor((firstClickedPos.x + static_cast<int>(SIZE / 2)) /
+                             SIZE) *
+                      SIZE,
+                  std::floor((firstClickedPos.y + static_cast<int>(SIZE / 2)) /
+                             SIZE) *
+                      SIZE);
+              wrongMove = true;
+            }
+            // Wrong move order. Black to play
+            else if (!isWhite &&
+                     pieces[firstClickedPiece]->getPieceEnum() < 6) {
+              pieces[firstClickedPiece]->move(
+                  std::floor((firstClickedPos.x + static_cast<int>(SIZE / 2)) /
+                             SIZE) *
+                      SIZE,
+                  std::floor((firstClickedPos.y + static_cast<int>(SIZE / 2)) /
+                             SIZE) *
+                      SIZE);
+              std::cout << "Wrong move. Black to play.\n";
+              wrongMove = true;
+            }
           }
 
-          if (!wrongMove) {
+          if (!wrongMove && firstClickedPiece >= 0) {
             bool isOccupied = false;
             for (int i = 0; i < pieces.size(); i++) {
               if (firstClickedPiece == i) {
@@ -149,8 +151,6 @@ int main() {
                   // If your move reveals a check, you can't move.
                   bool checkReveals = false;
 
-                  
-
                   updateBoardStatus(pieces, board);
                   for (int j = 0; j < pieces.size(); j++) {
                     if (isWhite) {
@@ -162,12 +162,12 @@ int main() {
                         continue;
                       }
                     }
-                    // Don't check if the piece that is about to be removed from the board is checking the king.
-                    if (i==j)
-                    {
+                    // Don't check if the piece that is about to be removed from
+                    // the board is checking the king.
+                    if (i == j) {
                       continue;
                     }
-                    
+
                     pieces[j]->checkMoveableSquares(board);
                     if (pieces[j]->checks) {
                       checkReveals = true;
@@ -175,7 +175,6 @@ int main() {
                   }
                   // If move reveals a check, it's illegal move.
                   if (checkReveals) {
-                    std::cout << "check reveals\n";
                     pieces[firstClickedPiece]->move(
                         std::floor(
                             (firstClickedPos.x + static_cast<int>(SIZE / 2)) /
@@ -188,8 +187,8 @@ int main() {
                   } else {
                     isOccupied = true;
                     pieces[firstClickedPiece]->move(
-                      std::floor(pos.x / SIZE) * SIZE,
-                      std::floor(pos.y / SIZE) * SIZE);
+                        std::floor(pos.x / SIZE) * SIZE,
+                        std::floor(pos.y / SIZE) * SIZE);
 
                     // If there is any check on the board, if there is, your
                     // move should remove check otherwise it's an illegal move.
@@ -205,21 +204,19 @@ int main() {
                           continue;
                         }
                       }
-                      // Don't check if the piece that is about to be removed from the board is checking the king.
-                    if (i == j)
-                    {
-                      continue;
-                    }
+                      // Don't check if the piece that is about to be removed
+                      // from the board is checking the king.
+                      if (i == j) {
+                        continue;
+                      }
 
                       pieces[j]->checkMoveableSquares(board);
                       if (pieces[j]->checks) {
-                        std::cout << pieces[j]->getName() << " checks.\n";
                         checks = true;
                       }
                     }
                     // If king is still checked, it's an illegal move.
                     if (checks) {
-                      std::cout << "checks move back to***\n";
                       pieces[firstClickedPiece]->move(
                           std::floor(
                               (firstClickedPos.x + static_cast<int>(SIZE / 2)) /
@@ -232,7 +229,6 @@ int main() {
                     }
                     // If there is no active check on king
                     else {
-                      std::cout << "no checks piece removed***\n";
                       pieces.erase(pieces.begin() + i);
 
                       if (isWhite)
@@ -273,7 +269,6 @@ int main() {
                 }
                 // If move reveals a check, it's illegal move.
                 if (checkReveals) {
-                  std::cout << "check reveals\n";
                   pieces[firstClickedPiece]->move(
                       std::floor(
                           (firstClickedPos.x + static_cast<int>(SIZE / 2)) /
@@ -302,7 +297,6 @@ int main() {
                     }
                     pieces[i]->checkMoveableSquares(board);
                     if (pieces[i]->checks) {
-                      std::cout << pieces[i]->getName() << " checks.\n";
                       checks = true;
                     }
                   }

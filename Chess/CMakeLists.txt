@@ -3,6 +3,7 @@ project(Chess LANGUAGES CXX)
 
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
+set(CMAKE_DEBUG_POSTFIX d)
 set(CMAKE_EXPORT_COMPILE_COMMANDS On)
 
 include_directories(include)
@@ -14,6 +15,7 @@ add_library(Pieces src/chess/pieces.cpp)
 target_link_libraries(Pieces sfml-graphics sfml-window)
 
 add_executable(Chess src/main.cpp)
+set_target_properties(Chess PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 target_link_libraries(Chess Utils Pieces sfml-graphics sfml-window sfml-system)
 target_compile_features(Chess PRIVATE cxx_std_17)
 

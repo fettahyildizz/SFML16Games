@@ -61,7 +61,6 @@ class Pieces {
   sf::Vector2i position_;
   std::shared_ptr<sf::Sprite> sprite_;
 public:
-
   Pieces(const PIECE_NAMES &name, const int &row, const int &col);
   /**
   * @param board [row][col]
